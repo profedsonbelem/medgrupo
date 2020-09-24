@@ -11,7 +11,6 @@ import { MedService } from './service/med-grupo.service';
 import { MailService } from './service/nodeMail.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { SimuladoService } from './service/simuladoservice';
 
 @NgModule({
 	declarations: [
@@ -29,7 +28,7 @@ import { SimuladoService } from './service/simuladoservice';
 		HttpClientModule
 
 	],
-	providers: [MedService,MailService, SimuladoService],  
+	providers: [MedService, MailService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
