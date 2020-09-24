@@ -1,0 +1,162 @@
+<p class="p-2 bg-dark"></p>
+<div class="container">
+  <img src='assets/imagem/logo.png' class="w-100">
+
+
+  <div class="row">
+    <div class="col-md-3">
+      <p class="menu mt-2">Simulados de 2008</p>
+      <ul>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 10</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 9</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 8</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 7</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 6</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 5</a>
+          <div class="" mdbCollapse #menu="bs-collapse">
+            <ul>
+              <li>Prova objetiva</li>
+              <li>Prova final</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 4</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 3</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 2</a>
+        </li>
+        <li>
+          <a (click)="menu.toggle()"> <i class="fas fa-caret-right mr-3"></i>Simulado 1</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-9">
+      <h6 class="prova">Simulado 5 - prova objetiva</h6>
+      <p>
+        Os resultados do simulado são atualizados diariamente, na medida em que os cartões-resposta e as provas
+        discursivas vão sendo processados.
+      </p>
+      <p>
+        Através dos filtros, você poderá criar rankings personalizados, por ESPECIALIDADE, TURMA (Curso) e
+        UNIDADE
+        (Cidade).
+      </p>
+      <form [formGroup]="form">
+        
+        <div class="form-group row p-3 matricula">
+          <label class="mt-1">Entre com a sua Matricula</label>
+          <input type="text" formControlName="matricula" class="form-control  ml-2 "
+            style="width: 150px;" />
+          <button class="btn btn-dark btn-sm ml-2" style="margin-top: 3px" type="submit" (click)="listagemBuscaMatricula();"> Procurar</button>
+        </div>
+
+        <label class="col-sm-2 col-form-label" for="valueSelected"> Filtrar por: </label>
+        <br>
+        <select class="custom-select mr-3" id="valueSelected" formControlName="especialidade" #selecionado
+          (change)="listagemBuscaEspecialidade(selecionado.value)">
+          <option>
+            Especialidades - TODAS
+          </option>
+          <option *ngFor="let item of buscarPorEspecialidade">
+            {{item.especialidade}}
+          </option>
+        </select>
+        <select class="custom-select mr-3" id="valueSelected" formControlName="turma" #selecionadoTurma
+          (change)="listagemBuscaTurma(selecionadoTurma.value)">
+          <option>
+            Turmas - TODAS
+          </option>
+          <option *ngFor="let item of buscarPorTurma">
+            {{item.turma}}
+          </option>
+        </select>
+        <select class="custom-select mr-3" id="valueSelected" formControlName="filial" #selecionadoFilial
+          (change)="listagemBuscaFilial(selecionadoFilial.value)">
+          <option>
+            Filiais - TODAS
+          </option>
+          <option *ngFor="let item of buscarPorFilial">
+            {{item.filial}}
+          </option>
+        </select>
+        <br>
+    
+      </form>
+    </div>
+  </div>
+
+
+
+  <div id='table' class="mt-5 mb-5">
+
+    <a  type="button" (click)="envioemail.show()">enviar para um amigo</a>
+
+    <div mdbModal #envioemail="mdbModal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="envioemail.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title w-100" id="myModalLabel">Envie a planilha por email</h4>
+          </div>
+
+
+					<div class="modal-body" >
+            <form [formGroup]="form" id="form1">
+						<div class="form-group row" >
+              <input type="text" formControlName="email" class="form-control
+                form-control-sm mt-4 ml-3 col-md-9" placeholder="Digite o email"/>
+              <button mdbBtn color="dark" class="ml-2 mt-4 btn_email"  size="sm" type="submit" (click)="envioEmail();"> enviar</button>
+            </div>
+          </form>
+          </div>
+
+				</div>
+			</div>
+    </div>
+    
+    <table class="table table-striped  table-hovered" datatable [dtOptions]="dtOptions"  id="tela1"
+      class="row-border hover" >
+      <thead class="bg-light">
+        <tr>
+          <th>Posição</th>
+          <th>Nota</th>
+          <th>Matrícula</th>
+          <th>Especialidade</th>
+          <th>Turma</th>
+          <th>Filial</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let a of listaAlunos'>
+          <td>{{a.posicao}}</td>
+          <td>{{a.nota}}</td>
+          <td>{{a.matricula}}</td>
+          <td>{{a.especialidade}}</td>
+          <td>{{a.turma}}</td>
+          <td>{{a.filial}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+</div>
