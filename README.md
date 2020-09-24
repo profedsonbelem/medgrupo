@@ -1,5 +1,5 @@
-#Criamos o med-grupo.service.ts e fizemos o teste com simulado.service.spec.ts
-##Para testar utilizamos ng test
+# Criamos o med-grupo.service.ts e fizemos o teste com simulado.service.spec.ts
+## Para testar utilizamos ng test
 
 npm i npm-registry-client
 ng add angular-bootstrap-md
